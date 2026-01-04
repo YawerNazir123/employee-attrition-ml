@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Employee Attrition Prediction System</h1>
+    <p>
+        An AI-powered HR analytics platform that predicts employee attrition
+        using Machine Learning and behavioral indicators.
+    </p>
+    <a href="/predict" class="btn">Start Analysis</a>
+</section>
+
+<section class="features">
+    <div class="card">
+        <h3>Machine Learning</h3>
+        <p>Random Forest based predictive modeling.</p>
+    </div>
+    <div class="card">
+        <h3>Risk Scoring</h3>
+        <p>Probability-driven attrition risk estimation.</p>
+    </div>
+    <div class="card">
+        <h3>HR Insights</h3>
+        <p>Data-driven decision support for retention.</p>
+    </div>
+</section>
+{% endblock %}

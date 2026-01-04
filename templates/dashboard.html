@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Admin Dashboard</h2>
+<p>Employee Attrition Analytics Overview</p>
+
+<!-- SUMMARY CARDS -->
+<div class="stats">
+    <div class="stat-card">
+        <h3>Total Predictions</h3>
+        <p>{{ total }}</p>
+    </div>
+    <div class="stat-card danger">
+        <h3>High Risk</h3>
+        <p>{{ high_risk }}</p>
+    </div>
+    <div class="stat-card safe">
+        <h3>Low Risk</h3>
+        <p>{{ low_risk }}</p>
+    </div>
+</div>
+
+<!-- CHART -->
+<div class="chart-box">
+    <canvas id="riskChart"></canvas>
+</div>
+
+<!-- TABLE -->
+<table class="dashboard-table">
+    <tr>
+        <th>ID</th>
+        <th>Age</th>
+        <th>Income</th>
+        <th>Job Sat</th>
+        <th>Work-Life</th>
+        <th>Experience</th>
+        <th>Company</th>
+        <th>Manager</th>
+        <th>Risk %</th>
+        <th>Prediction</th>
+        <th>Date</th>
+    </tr>
+
+    {% for row in records %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.age }}</td>
+        <td>{{ row.monthly_income }}</td>
+        <td>{{ row.job_satisfaction }}</td>
+        <td>{{ row.work_life_balance }}</td>
+        <td>{{ row.total_working_years }}</td>
+        <td>{{ row.years_at_company }}</td>
+        <td>{{ row.years_with_manager }}</td>
+        <td>{{ row.risk_score }}</td>
+        <td>{{ row.prediction }}</td>
+        <td>{{ row.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/logout" class="btn">Logout</a>
+
+<!-- CHART SCRIPT -->
+<script>
+const ctx = document.getElementById("riskChart");
+
+new Chart(ctx, {
+    type: "pie",
+    data: {
+        labels: ["High Risk", "Low Risk"],
+        datasets: [{
+            data: [{{ high_risk }}, {{ low_risk }}],
+            backgroundColor: ["#ef4444", "#22c55e"]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
+
+{% endblock %}

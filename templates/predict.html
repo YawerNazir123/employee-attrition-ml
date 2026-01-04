@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="predict-box">
+    <h2>Employee Attrition Risk Analysis</h2>
+
+    <form method="POST">
+        <input type="number" name="Age" placeholder="Age" required>
+        <input type="number" name="MonthlyIncome" placeholder="Monthly Income" required>
+        <input type="number" name="JobSatisfaction" placeholder="Job Satisfaction (1-4)" required>
+        <input type="number" name="WorkLifeBalance" placeholder="Work Life Balance (1-4)" required>
+        <input type="number" name="TotalWorkingYears" placeholder="Total Working Years" required>
+        <input type="number" name="YearsAtCompany" placeholder="Years at Company" required>
+        <input type="number" name="YearsWithCurrManager" placeholder="Years With Current Manager" required>
+
+        <button type="submit">Predict Attrition</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h3>{{ prediction }}</h3>
+        <p>Risk Score: {{ risk }}%</p>
+
+        <div class="risk-bar">
+            <div class="risk-fill" style="width: {{ risk }}%;"></div>
+        </div>
+    </div>
+
+    <!-- Chart shown ONLY after prediction -->
+    <div class="chart-container">
+        <canvas id="impactChart"></canvas>
+    </div>
+
+    <!-- Load chart script ONLY when canvas exists -->
+    <script src="{{ url_for('static', filename='charts.js') }}"></script>
+    {% endif %}
+</section>
+{% endblock %}
